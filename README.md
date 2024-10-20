@@ -17,20 +17,18 @@ This Python project automates the process of organizing a Secret Santa event. It
 ```bash
 secret-santa/
 │
-├── config/
-│   └── env.py         # Configuration settings (SMTP, file paths, etc.)
-│
 ├── src/
 │   ├── draw.py        # Logic for drawing names
 │   ├── emailer.py     # Email sending functionality
 │   ├── file_io.py     # File handling (CSV reading/writing)
 │   ├── main.py        # Main program logic
-│   └── utils.py       # Utility functions (date, time handling)
+│   ├── utils.py       # Utility functions (date, time handling)
+│   └── env.py         # Configuration settings (SMTP, file paths, etc.)
 │
 └── README.md          # Project readme
 ```
 
-### `config/env.py`
+### `src/env.py`
 
 The configuration file contains SMTP settings, file paths, and customizable parameters for the draw.
 
@@ -40,7 +38,7 @@ Example `env.py`:
 SMTP_SERVER = "smtp.example.com"
 SMTP_PORT = 25
 SENDER_EMAIL = "santa@example.com"
-CSV_FILE_PATH = "secret_santa_DB.csv"
+CSV_FILE_PATH = r"secret_santa_DB.csv"
 DRAW_PER_PERSON = 2  # Choose 1 or 2 recipients per person
 
 # Email content
@@ -68,12 +66,15 @@ This email was sent automatically, please do not reply.
 
 1. Clone the repository or download the script files.
 2. Ensure you have Python installed on your system. If not, download and install Python from [here](https://www.python.org/downloads/).
-3. Set up the `env.py` file in the `config/` directory, adjusting the SMTP settings, CSV file path, and draw parameters as needed.
+3. Set up the `env.py` file in the `src/` directory, adjusting the SMTP settings, CSV file path, and draw parameters as needed.
 
-Example structure of the CSV file:
-
+Example structure of the CSV file
+with the following colunms
 ```csv
 Name,Email,Last_Year_Recipient_1,Last_Year_Recipient_2
+```
+
+```csv
 Alice,alice@example.com,Bob,Charlie
 Bob,bob@example.com,Alice,David
 Charlie,charlie@example.com,David,Alice

@@ -1,8 +1,8 @@
-from config.env import CSV_FILE_PATH, DRAW_PER_PERSON, EMAIL_SUBJECT, EMAIL_BODY
-from src.file_io import open_csv, save_csv
-from src.draw import draw_names
-from src.emailer import send_email
-from src.utils import get_current_time
+from env import CSV_FILE_PATH, DRAW_PER_PERSON, EMAIL_SUBJECT, EMAIL_BODY
+from file_io import open_csv, save_csv
+from draw import draw_names
+from emailer import send_email
+from utils import get_current_time
 from datetime import date
 
 def send_all_emails(new_draw):

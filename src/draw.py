@@ -12,10 +12,11 @@ def draw_names(previous_draw, draws_per_person):
     new_draw = []  # Store new draw results
 
     for i in range(len(participants)):
+        giver = previous_draw[i][0]
+        email = previous_draw[i][1] 
+        print(email)
         last_year_r1 = previous_draw[i][2]
         last_year_r2 = previous_draw[i][3]
-        giver = previous_draw[i][0]
-        email = previous_draw[i][1]
 
         available_participants = participants.copy()
         try:
