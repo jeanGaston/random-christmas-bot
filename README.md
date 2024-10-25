@@ -15,7 +15,7 @@ This Python project automates the process of organizing a Secret Santa event. It
 ## Project Structure
 
 ```bash
-secret-santa/
+Random-Christmas-Bot/
 │
 ├── src/
 │   ├── draw.py        # Logic for drawing names
