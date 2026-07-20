@@ -1,0 +1,115 @@
+:root {
+    --bg: #fbfaf7;
+    --fg: #1f2421;
+    --card-bg: #ffffff;
+    --border: #e0ddd4;
+    --accent: #1a6b3c;
+    --accent-fg: #ffffff;
+    --danger: #a3242a;
+    --hint: #6b6558;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #14171a;
+        --fg: #eae7e0;
+        --card-bg: #1d2124;
+        --border: #33383d;
+        --accent: #2e9c5c;
+        --accent-fg: #0c130f;
+        --danger: #e0666c;
+        --hint: #9aa0a6;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.5;
+}
+
+header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+header h1 { margin: 0; font-size: 1.3rem; }
+
+nav a {
+    color: var(--accent);
+    text-decoration: none;
+    margin-right: 1rem;
+    font-weight: 600;
+}
+nav a:hover { text-decoration: underline; }
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.card h2 { margin-top: 0; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    display: block;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.hint, .count { color: var(--hint); font-size: 0.9rem; }
+
+.error { color: var(--danger); font-weight: 600; }
+
+.inline-form {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+input[type=text], input[type=email] {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--fg);
+}
+
+button {
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    cursor: pointer;
+    font-weight: 600;
+}
+button:hover { opacity: 0.9; }
+button.danger { background: var(--danger); }

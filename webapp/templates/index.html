@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Random Christmas Bot{% endblock %}
+{% block content %}
+
+<section class="card">
+    <h2>Participants <span class="count">({{ participants|length }})</span></h2>
+    <p class="hint">Data file: {{ csv_prefix }}_&lt;year&gt;.csv</p>
+    <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Last recipients</th><th></th></tr></thead>
+        <tbody>
+        {% for p in participants %}
+            <tr>
+                <td>{{ p[0] }}</td>
+                <td>{{ p[1] }}</td>
+                <td>{{ p[2:]|join(", ") }}</td>
+                <td>
+                    <form action="/participants/remove" method="post" class="inline-form">
+                        <input type="hidden" name="name" value="{{ p[0] }}">
+                        <button type="submit" class="danger">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="4"><em>No participants yet for this year.</em></td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="/participants/add" method="post" class="inline-form">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Add participant</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Exclusions</h2>
+    <p class="hint">A giver in an exclusion pair will never be assigned that receiver.</p>
+    <table>
+        <thead><tr><th>Giver</th><th>Receiver</th><th></th></tr></thead>
+        <tbody>
+        {% for giver, receiver in exclusions %}
+            <tr>
+                <td>{{ giver }}</td>
+                <td>{{ receiver }}</td>
+                <td>
+                    <form action="/exclusions/remove" method="post" class="inline-form">
+                        <input type="hidden" name="giver" value="{{ giver }}">
+                        <input type="hidden" name="receiver" value="{{ receiver }}">
+                        <button type="submit" class="danger">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3"><em>No exclusions configured.</em></td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="/exclusions/add" method="post" class="inline-form">
+        <input type="text" name="giver" placeholder="Giver" required>
+        <input type="text" name="receiver" placeholder="Receiver" required>
+        <button type="submit">Add exclusion</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Run the draw</h2>
+    <p class="hint">
+        This performs the draw, <strong>emails every participant their result</strong>,
+        and overwrites this year's CSV. It cannot be undone from here.
+    </p>
+    <form action="/draw/run" method="post" onsubmit="return confirm('Run the draw and email all participants now?');">
+        <button type="submit" class="danger">Run draw &amp; send emails</button>
+    </form>
+</section>
+
+{% endblock %}

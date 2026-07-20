@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Draw result - Random Christmas Bot{% endblock %}
+{% block content %}
+
+<section class="card">
+    <h2>Draw result</h2>
+    {% if error %}
+        <p class="error">The draw failed: {{ error }}</p>
+    {% else %}
+        <p>Draw complete — emails sent to {{ new_draw|length }} participant(s).</p>
+        <table>
+            <thead><tr><th>Giver</th><th>Email</th><th>Recipients</th></tr></thead>
+            <tbody>
+            {% for row in new_draw %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2:]|join(", ") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <p><a href="/">&larr; Back to dashboard</a></p>
+</section>
+
+{% endblock %}

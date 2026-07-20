@@ -15,6 +15,10 @@ CSV_PREFIX = os.environ.get("CSV_PREFIX", "secret_santa_DB")  # Prefix for CSV f
 HISTORY_YEARS = int(os.environ.get("HISTORY_YEARS", "2"))  # Number of past years to consider in the draw
 DRAW_PER_PERSON = int(os.environ.get("DRAW_PER_PERSON", "2"))  # Number of recipients per person
 
+# Web GUI basic-auth credentials (unset => auth disabled, see webapp/app.py)
+WEBAPP_USERNAME = os.environ.get("WEBAPP_USERNAME")
+WEBAPP_PASSWORD = os.environ.get("WEBAPP_PASSWORD")
+
 # Email content
 EMAIL_SUBJECT = os.environ.get("EMAIL_SUBJECT", "Secret Santa {year} Draw")
 EMAIL_BODY = os.environ.get("EMAIL_BODY", """

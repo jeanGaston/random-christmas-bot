@@ -1,0 +1,12 @@
+services:
+  webgui:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      CSV_PATH: /data
+    volumes:
+      - ${HOST_CSV_PATH:-./data}:/data
+    restart: unless-stopped

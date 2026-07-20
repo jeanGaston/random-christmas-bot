@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}History - Random Christmas Bot{% endblock %}
+{% block content %}
+
+{% for year, rows in year_data %}
+<section class="card">
+    <h2>{{ year }}</h2>
+    {% if rows %}
+    <table>
+        <thead><tr><th>Giver</th><th>Email</th><th>Recipients</th></tr></thead>
+        <tbody>
+        {% for row in rows %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2:]|join(", ") }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="hint"><em>No data for this year.</em></p>
+    {% endif %}
+</section>
+{% endfor %}
+
+{% endblock %}
