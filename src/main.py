@@ -1,5 +1,5 @@
 from env import DRAW_PER_PERSON, HISTORY_YEARS, EMAIL_SUBJECT, EMAIL_BODY
-from file_io import load_history, save_csv, load_participants
+from file_io import load_history, save_csv, load_participants, load_exclusions
 from draw import draw_names
 from emailer import send_email
 from utils import get_current_time
@@ -17,22 +17,21 @@ def send_all_emails(new_draw):
         send_email(receiver_email, subject, message)
         print(f"Email sent to {name} ({receiver_email})")
 
+def run_draw():
+    """Load participants/history, perform the draw, email results, and persist them. Returns the new draw."""
+    history_data = load_history(HISTORY_YEARS)
+    current_year = date.today().year
+    current_participants = load_participants()
+    exclusions = load_exclusions()
+
+    new_draw = draw_names(current_participants, history_data, DRAW_PER_PERSON, exclusions)
+    send_all_emails(new_draw)
+    save_csv(new_draw, current_year)
+    return new_draw
+
 if __name__ == "__main__":
     try:
-        # Load data from historical CSVs and this year's participants
-        history_data = load_history(HISTORY_YEARS)
-
-        current_year = date.today().year
-        current_participants = load_participants()  # Load participants data
-
-        # Perform the draw
-        new_draw = draw_names(current_participants, history_data, DRAW_PER_PERSON)
-        # Send emails to participants
-        send_all_emails(new_draw)
-
-        # Save new draw results
-        save_csv(new_draw, current_year)
-
+        new_draw = run_draw()
         print(f"Process completed at {get_current_time()[1]} on {get_current_time()[0]}")
 
     except Exception as e:

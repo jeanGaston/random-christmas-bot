@@ -45,6 +45,24 @@ def load_participants():
 
     return participants_data
 
+def load_exclusions():
+    """
+    Load exclusion pairs from a CSV file.
+    :return: A set of tuples representing invalid combinations (giver, receiver).
+    """
+    exclusions = set()
+    current_year = date.today().year
+    try:
+        file_name = f"{CSV_PATH}/{CSV_PREFIX}_exclusions.csv"
+        with open(file_name, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                if len(row) == 2:
+                    exclusions.add(tuple(row))
+    except FileNotFoundError:
+        print(f"Exclusion file not found: {file_name}. No exclusions will be applied.")
+    return exclusions
+
 def save_csv(data, year):
     """
     Save the new draw results to a CSV file named with the current year.

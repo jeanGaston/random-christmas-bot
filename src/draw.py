@@ -1,12 +1,13 @@
 from random import choice
 
-def draw_names(current_participants, history_data, draws_per_person, max_attempts=5):
+def draw_names(current_participants, history_data, draws_per_person, exclusions, max_attempts=5):
     """
-    Perform the Secret Santa draw considering past years' draws.
+    Perform the Secret Santa draw considering past years' draws and exclusions.
     :param current_participants: This year's participant list.
     :param history_data: Historical draw data to avoid repeats.
     :param draws_per_person: Number of people each participant should give gifts to.
-    :param max_attempts: Maximum number of retry attempts before loosening exclusions. by default : 5.
+    :param exclusion_file: Path to the exclusion file.
+    :param max_attempts: Maximum number of retry attempts before loosening exclusions.
     :return: The new draw results.
     """
     participants = [p[0] for p in current_participants]  # Get participant names
@@ -14,6 +15,7 @@ def draw_names(current_participants, history_data, draws_per_person, max_attempt
     new_draw = []  # Store new draw results
 
     for attempt in range(max_attempts):
+        print(attempt)
         new_draw.clear()
         already_drawn.clear()
         success = True  # Track if draw is successful in this attempt
@@ -23,8 +25,9 @@ def draw_names(current_participants, history_data, draws_per_person, max_attempt
             # Collect previous recipients to avoid drawing the same person again
             previous_recipients = {recipient for record in history_data if record[0] == giver for recipient in record[2:]}
 
-            # Create a set of available participants excluding the giver and previous recipients
+            # Create a set of available participants excluding the giver, previous recipients, and exclusions
             available_participants = set(participants) - {giver} - previous_recipients
+            available_participants -= {receiver for receiver in participants if (giver, receiver) in exclusions}
             new_recipients = []
 
             # Ensure there are enough available participants for the draw
